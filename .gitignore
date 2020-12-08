@@ -9,9 +9,6 @@ jars/
 */logs
 */Startup.log
 
-**/application.yml
-
-
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
@@ -47,3 +44,5 @@ build/
 
 ### Spring Cloud Config Cache ###
 *.cache
+
+*/*/src/main/resources/application.yml
