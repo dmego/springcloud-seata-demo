@@ -18,6 +18,7 @@
         <spring.boot.version>2.3.2.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR8</spring.cloud.version>
         <spring.cloud.alibaba.version>2.2.3.RELEASE</spring.cloud.alibaba.version>
+        <seata.version>1.4.0</seata.version>
         <common.service.version>1.0-SNAPSHOT</common.service.version>
     </properties>
 
@@ -58,13 +59,11 @@
             <version>${common.service.version}</version>
         </dependency>
 
-        <!-- 引入 SpringMVC 相关依赖，并实现对其的自动配置 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- 实现对数据库连接池的自动化配置 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
@@ -87,10 +86,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency> <!-- 使用 seata 1.4.0 版本 -->
+        <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
-            <version>1.4.0</version>
+            <version>${seata.version}</version>
         </dependency>
 
         <dependency>
@@ -103,7 +102,6 @@
             <artifactId>spring-cloud-loadbalancer</artifactId>
         </dependency>
 
-        <!-- 引入 Spring Cloud OpenFeign 相关依赖，使用 OpenFeign 提供声明式调用，并实现对其的自动配置 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
