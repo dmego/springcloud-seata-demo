@@ -25,7 +25,7 @@ consul: 1.9.2
 seata: 1.4.0
 spring-boot: 2.3.2.RELEASE
 spring-cloud: Hoxton.SR8
-spring-cloud-alibaba: 2.3.0.RELEASE
+spring-cloud-alibaba: 2.2.3.RELEASE
 ```
 
 ## 工程目录结构
