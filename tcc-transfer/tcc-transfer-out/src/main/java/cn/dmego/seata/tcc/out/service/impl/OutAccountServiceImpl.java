@@ -3,6 +3,7 @@ package cn.dmego.seata.tcc.out.service.impl;
 
 import cn.dmego.seata.common.util.ResultHolder;
 import cn.dmego.seata.tcc.out.dao.OutAccountDao;
+import cn.dmego.seata.tcc.out.entity.Account;
 import cn.dmego.seata.tcc.out.service.IOutAccountService;
 
 import io.seata.rm.tcc.api.BusinessActionContext;
@@ -11,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @className: OutAccountServiceImpl
@@ -92,6 +96,22 @@ public class OutAccountServiceImpl implements IOutAccountService {
         // cancel 成功删除标识
         ResultHolder.removeResult(getClass(), actionContext.getXid());
         log.info("[outCancel]: 解除冻结 {} 余额成功", amount);
+        return true;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean reset() {
+        List<Account> accounts =new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        for (int i = 1; i <= 300; i++) {
+            Account account = new Account(i+"", "100000000", "0", "0");
+            ids.add(i+"");
+            accounts.add(account);
+        }
+
+        outAccountDao.delete(ids);
+        outAccountDao.init(accounts);
         return true;
     }
 }

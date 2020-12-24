@@ -6,11 +6,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account` (
-  `ID` varchar(255) NOT NULL COMMENT '账户',
-  `BALANCE` double DEFAULT NULL COMMENT '账户余额',
-  `FREEZED` double DEFAULT NULL COMMENT '账户冻结金额',
-  `INCOMING` double DEFAULT NULL COMMENT '账户应收金额',
-  PRIMARY KEY (`ID`) USING BTREE
+  `id` varchar(255) NOT NULL COMMENT '账户',
+  `balance` double DEFAULT NULL COMMENT '账户余额',
+  `freezed` double DEFAULT NULL COMMENT '账户冻结金额',
+  `incoming` double DEFAULT NULL COMMENT '账户应收金额',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -25,10 +25,10 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `account_trans`;
 CREATE TABLE `account_trans` (
-  `TX_ID` varchar(255) NOT NULL,
-  `ACCOUNT_ID` varchar(255) NOT NULL,
-  `AMOUNT` double DEFAULT NULL,
-  PRIMARY KEY (`TX_ID`) USING BTREE
+  `tx_id` varchar(255) NOT NULL,
+  `account_id` varchar(255) NOT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`tx_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

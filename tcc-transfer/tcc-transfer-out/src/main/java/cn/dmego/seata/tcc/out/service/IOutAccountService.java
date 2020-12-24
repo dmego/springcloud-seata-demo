@@ -24,4 +24,6 @@ public interface IOutAccountService {
     boolean outConfirm(BusinessActionContext actionContext);
 
     boolean outCancel(BusinessActionContext actionContext);
+
+    boolean reset();
 }

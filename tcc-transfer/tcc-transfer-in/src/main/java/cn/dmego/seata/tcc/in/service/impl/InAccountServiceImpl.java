@@ -3,13 +3,18 @@ package cn.dmego.seata.tcc.in.service.impl;
 
 import cn.dmego.seata.common.util.ResultHolder;
 import cn.dmego.seata.tcc.in.dao.InAccountDao;
+import cn.dmego.seata.tcc.in.entity.Account;
 import cn.dmego.seata.tcc.in.service.IInAccountService;
 import io.seata.rm.tcc.api.BusinessActionContext;
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @className: InAccountServiceImpl
@@ -91,6 +96,22 @@ public class InAccountServiceImpl implements IInAccountService {
         // cancel 成功删除标识
         ResultHolder.removeResult(getClass(), actionContext.getXid());
         log.info("[inCancel]: 取消应收 {} 余额成功", amount);
+        return true;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean reset() {
+        List<Account> accounts =new ArrayList<>();
+        List<String> ids = new ArrayList<>();
+        for (int i = 1; i <= 300; i++) {
+            Account account = new Account(i+"", "0", "0", "0");
+            ids.add(i+"");
+            accounts.add(account);
+        }
+
+        inAccountDao.delete(ids);
+        inAccountDao.init(accounts);
         return true;
     }
 }
