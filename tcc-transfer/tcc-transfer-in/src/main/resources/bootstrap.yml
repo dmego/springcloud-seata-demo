@@ -1,5 +1,26 @@
 server:
   port: 8083
+  undertow:
+    max-http-post-size: 0
+    buffer-size: 1024
+    direct-buffers: true
+    threads:
+      io: 16
+      worker: 256
+
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+    max-connections: 1000
+    max-connections-per-route: 100
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+
 
 spring:
   application:
@@ -19,11 +40,37 @@ spring:
         prefer-ip-address: true
 
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://127.0.0.1:3306/tcc_test_in?useSSL=false&useUnicode=true&characterEncoding=UTF-8
-    driver-class-name: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.jdbc.Driver
     username: root
     password: root
+    platform: mysql
 
+    #连接池的配置信息
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    minIdle: 5
+    validationQuery: SELECT 1 FROM DUAL
+    initialSize: 5
+    maxWait: 60000
+    filters: stat,wall,log4j2
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    testOnBorrow: false
+    testWhileIdle: true
+    minEvictableIdleTimeMillis: 300000
+    timeBetweenEvictionRunsMillis: 60000
+    testOnReturn: false
+    maxActive: 200
+
+    druid:
+      web-stat-filter:
+        enabled: true
+      stat-view-servlet:
+        login-password: admin
+        login-username: admin
+        enabled: true
+        allow:
 
 # Seata 配置项，对应 SeataProperties 类
 seata:
