@@ -36,9 +36,7 @@ public class TransServiceImpl implements ITransService {
     @Override
     @GlobalTransactional
     public boolean transferAmount(Transfer transfer){
-
         String xid = RootContext.getXID();
-        LOGGER.info("------->转账开始");
 
         BusinessActionContext actionContext = new BusinessActionContext();
         actionContext.setXid(xid);
@@ -53,7 +51,6 @@ public class TransServiceImpl implements ITransService {
         if(!result){
             throw new RuntimeException("收钱方收钱失败");
         }
-        LOGGER.info("------->转账结束");
         return true;
 
     }

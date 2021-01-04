@@ -29,8 +29,11 @@ public class TransController {
 
     @RequestMapping(value = "/tcc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public String transferTcc(@RequestBody Transfer transfer){
-        log.info("转账流程开始---->");
+        long s = System.currentTimeMillis();
+        log.info("------->转账开始");
         transService.transferAmount(transfer);
+        long e = System.currentTimeMillis();
+        log.info("------->转账结束, 耗时:" +  (e - s) + "ms");
         return "request succ!";
     }
 
