@@ -5,8 +5,8 @@ server:
     buffer-size: 1024
     direct-buffers: true
     threads:
-      io: 16
-      worker: 256
+      io: 8
+      worker: 64
 
 feign:
   okhttp:
@@ -41,11 +41,16 @@ spring:
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3306/tcc_test_in?useSSL=false&useUnicode=true&characterEncoding=UTF-8
-    driverClassName: com.mysql.jdbc.Driver
-    username: root
-    password: root
-    platform: mysql
+    driverClassName: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@127.0.0.1:1521:XE
+    username: tcc_test_in
+    password: tcc123
+    platform: oracle
+#    url: jdbc:mysql://127.0.0.1:3306/tcc_test_in?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+#    driverClassName: com.mysql.jdbc.Driver
+#    username: root
+#    password: root
+#    platform: mysql
 
     #连接池的配置信息
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
@@ -82,12 +87,12 @@ seata:
     # 虚拟组和分组的映射
     vgroup-mapping:
       tcc-transfer-in-group: seata-server
-    grouplist:
-      seata-server: 127.0.0.1:8091
+#    grouplist:
+#      seata-server: 127.0.0.1:8091
   # Seata 注册中心配置项，对应 RegistryProperties 类
-#  registry:
-#    type: consul # 注册中心类型，默认为 file
-#    consul:
-#      cluster: seata-server #
-#      serverAddr: 127.0.0.1:8500  # Consul 服务地址
+  registry:
+    type: consul # 注册中心类型，默认为 file
+    consul:
+      cluster: seata-server #
+      serverAddr: 127.0.0.1:8500  # Consul 服务地址
 
