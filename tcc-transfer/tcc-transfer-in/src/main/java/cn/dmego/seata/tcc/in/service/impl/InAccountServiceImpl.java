@@ -36,7 +36,7 @@ public class InAccountServiceImpl implements IInAccountService {
         long s = System.currentTimeMillis();
         String txId = actionContext.getXid();
         long branchId = actionContext.getBranchId();
-        log.info("[inTry]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
+        log.debug("[inTry]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
         // 执行收钱 try SQL
         int amountTry = inAccountDao.inComingTry(id, amount);
         if(amountTry == 0){
@@ -45,7 +45,7 @@ public class InAccountServiceImpl implements IInAccountService {
         //事务成功，保存一个标识，供第二阶段进行判断
         ResultHolder.setResult(getClass(), actionContext.getXid(), "p");
         long e = System.currentTimeMillis();
-        log.info("[inTry]: 冻结应收 {} 余额成功，耗时:{}ms", amount,(e - s));
+        log.info("inTry used time:{} ms", (e - s));
         return true;
     }
 
@@ -57,7 +57,7 @@ public class InAccountServiceImpl implements IInAccountService {
         long branchId = actionContext.getBranchId();
         String id = ((String) actionContext.getActionContext("inId"));
         double amount = ((double) actionContext.getActionContext("amount"));
-        log.info("[inConfirm]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
+        log.debug("[inConfirm]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
 
         // 幂等控制，如果commit阶段重复执行则直接返回
         if (ResultHolder.getResult(getClass(), actionContext.getXid()) == null) {
@@ -72,7 +72,7 @@ public class InAccountServiceImpl implements IInAccountService {
         // commit成功删除标识
         ResultHolder.removeResult(getClass(), actionContext.getXid());
         long e = System.currentTimeMillis();
-        log.info("[inConfirm]: 收入 {} 余额成功，耗时:{}ms", amount,(e - s));
+        log.info("inConfirm used time:{} ms", (e - s));
         return true;
     }
 
@@ -84,7 +84,7 @@ public class InAccountServiceImpl implements IInAccountService {
         long branchId = actionContext.getBranchId();
         String id = ((String) actionContext.getActionContext("inId"));
         double amount = ((double) actionContext.getActionContext("amount"));
-        log.info("[inCancel]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
+        log.debug("[inCancel]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
 
         // 幂等控制，如果 cancel 阶段重复执行则直接返回
         if (ResultHolder.getResult(getClass(), actionContext.getXid()) == null) {
@@ -100,22 +100,20 @@ public class InAccountServiceImpl implements IInAccountService {
         // cancel 成功删除标识
         ResultHolder.removeResult(getClass(), actionContext.getXid());
         long e = System.currentTimeMillis();
-        log.info("[inCancel]: 取消应收 {} 余额成功，耗时:{}ms", amount,(e - s));
+        log.info("inCancel used time:{} ms", (e - s));
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean reset() {
+    public boolean reset(int number) {
         List<Account> accounts =new ArrayList<>();
-        List<String> ids = new ArrayList<>();
-        for (int i = 1; i <= 500; i++) {
+        for (int i = 1; i <= number; i++) {
             Account account = new Account(i+"", "0", "0", "0");
-            ids.add(i+"");
             accounts.add(account);
         }
 
-        inAccountDao.delete(ids);
+        inAccountDao.delete();
         inAccountDao.init(accounts);
         return true;
     }

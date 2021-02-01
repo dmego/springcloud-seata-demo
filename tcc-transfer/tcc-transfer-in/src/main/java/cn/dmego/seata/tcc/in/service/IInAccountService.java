@@ -17,5 +17,6 @@ public interface IInAccountService {
 
     boolean inCancel( BusinessActionContext actionContext);
 
-    boolean reset();
+    boolean reset(int number);
+
 }

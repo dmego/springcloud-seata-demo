@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransServiceImpl implements ITransService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TransServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(TransServiceImpl.class);
 
 
     @Autowired
@@ -36,6 +36,7 @@ public class TransServiceImpl implements ITransService {
     @Override
     @GlobalTransactional
     public boolean transferAmount(Transfer transfer){
+        long s = System.currentTimeMillis();
         String xid = RootContext.getXID();
 
         BusinessActionContext actionContext = new BusinessActionContext();
@@ -46,12 +47,13 @@ public class TransServiceImpl implements ITransService {
             throw new RuntimeException("转账方转钱失败");
         }
         // 执行收钱方 Try
-
         result = inAccountService.inTry(actionContext, transfer.getInId(), transfer.getAmount());
         if(!result){
             throw new RuntimeException("收钱方收钱失败");
         }
-        return true;
 
+        long e = System.currentTimeMillis();
+        log.info("transferAmount used time :" +  (e - s) + "ms");
+        return true;
     }
 }

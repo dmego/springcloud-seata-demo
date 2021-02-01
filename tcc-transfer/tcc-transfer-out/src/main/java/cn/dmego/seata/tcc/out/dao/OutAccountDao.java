@@ -61,18 +61,10 @@ public class OutAccountDao {
                 });
     }
 
-    public int[] delete(List<String> ids){
-        String sql = "delete from account where id = ?";
-        return this.jdbcTemplate.batchUpdate(sql,
-                new BatchPreparedStatementSetter() {
-                    public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setString(1, ids.get(i));
-                    }
-                    public int getBatchSize() {
-                        return ids.size();
-                    }
-                });
-    }
 
+    public int delete(){
+        String sql = "truncate table account";
+        return this.jdbcTemplate.update(sql);
+    }
 
 }

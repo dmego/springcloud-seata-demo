@@ -38,9 +38,9 @@ public class InAccountController {
         return inAccountService.inCancel(actionContext);
     }
 
-    @PostMapping(value = "reset")
-    public boolean reset(){
-        return inAccountService.reset();
+    @PostMapping(value = "/reset/{number}")
+    public boolean reset(@PathVariable("number") int number){
+        return inAccountService.reset(number);
     }
 
 }

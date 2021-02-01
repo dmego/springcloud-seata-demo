@@ -47,7 +47,7 @@ public class OutAccountServiceImpl implements IOutAccountService {
         //事务成功，保存一个标识，供第二阶段进行判断
         ResultHolder.setResult(getClass(), actionContext.getXid(), "p");
         long e = System.currentTimeMillis();
-        log.info("[outTry]: 冻结 {} 余额成功, 耗时:{}ms", amount,(e - s));
+        log.info("outTry used time {}ms", (e - s));
         return true;
     }
 
@@ -74,7 +74,7 @@ public class OutAccountServiceImpl implements IOutAccountService {
         // commit成功删除标识
         ResultHolder.removeResult(getClass(), actionContext.getXid());
         long e = System.currentTimeMillis();
-        log.info("[outConfirm]: 扣减 {} 余额成功，耗时:{}ms", amount,(e - s));
+        log.info("outConfirm used time {}ms", (e - s));
         return true;
     }
 
@@ -86,7 +86,7 @@ public class OutAccountServiceImpl implements IOutAccountService {
         long branchId = actionContext.getBranchId();
         String id = String.valueOf(actionContext.getActionContext("outId"));
         double amount =Double.parseDouble(String.valueOf(actionContext.getActionContext("amount")));
-        log.info("[outCancel]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
+        log.debug("[outCancel]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
 
         // 幂等控制，如果 cancel 阶段重复执行则直接返回
         if (ResultHolder.getResult(getClass(), actionContext.getXid()) == null) {
@@ -101,22 +101,20 @@ public class OutAccountServiceImpl implements IOutAccountService {
         // cancel 成功删除标识
         ResultHolder.removeResult(getClass(), actionContext.getXid());
         long e = System.currentTimeMillis();
-        log.info("[outCancel]: 解除冻结 {} 余额成功，耗时:{}ms", amount,(e - s));
+        log.info("outCancel used time {}ms", (e - s));
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean reset() {
+    public boolean reset(int number) {
         List<Account> accounts =new ArrayList<>();
-        List<String> ids = new ArrayList<>();
-        for (int i = 1; i <= 500; i++) {
+        for (int i = 1; i <= number; i++) {
             Account account = new Account(i+"", "100000000", "0", "0");
-            ids.add(i+"");
             accounts.add(account);
         }
 
-        outAccountDao.delete(ids);
+        outAccountDao.delete();
         outAccountDao.init(accounts);
         return true;
     }

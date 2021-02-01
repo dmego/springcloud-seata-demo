@@ -30,16 +30,16 @@ public class TransController {
     @RequestMapping(value = "/tcc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public String transferTcc(@RequestBody Transfer transfer){
         long s = System.currentTimeMillis();
-        log.info("------->转账开始");
+        log.info("transfer begin");
         transService.transferAmount(transfer);
         long e = System.currentTimeMillis();
-        log.info("------->转账结束, 耗时:" +  (e - s) + "ms");
+        log.info("transfer end, used time :" +  (e - s) + "ms");
         return "request succ!";
     }
 
-    @PostMapping(value = "reset")
-    public boolean reset(){
-        return outAccountService.reset();
+    @PostMapping(value = "/reset/{number}")
+    public boolean reset(@PathVariable("number") int number){
+        return outAccountService.reset(number);
     }
 
 }
