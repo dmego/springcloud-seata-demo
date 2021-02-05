@@ -20,12 +20,11 @@ SpringCloud 下的 Seata 分布式事务， AT 模式和 TCC 模式
 
 ## 环境说明
 ```yaml
-mysql: 5.7
+mysql: 8.0
 consul: 1.9.2
-seata: 1.4.0
-spring-boot: 2.3.2.RELEASE
-spring-cloud: Hoxton.SR8
-spring-cloud-alibaba: 2.2.3.RELEASE
+seata: 1.5.0-SNAPSHOT
+spring-boot: 2.3.5.RELEASE
+spring-cloud: Hoxton.SR9
 ```
 
 ## 工程目录结构
