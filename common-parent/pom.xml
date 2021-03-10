@@ -18,7 +18,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <spring.boot.version>2.3.5.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
-        <seata.version>1.4.0</seata.version>
+        <seata.version>1.4.1</seata.version>
         <common.service.version>1.0-SNAPSHOT</common.service.version>
     </properties>
 
@@ -95,8 +95,7 @@
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
-<!--            <version>${seata.version}</version>-->
-            <version>1.5.0-SNAPSHOT</version>
+            <version>${seata.version}</version>
         </dependency>
 
         <dependency>
@@ -120,5 +119,22 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.4.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -2,9 +2,6 @@ package cn.dmego.seata.tcc.out.proxy;
 
 
 import io.seata.rm.tcc.api.BusinessActionContext;
-import io.seata.rm.tcc.api.BusinessActionContextParameter;
-import io.seata.rm.tcc.api.LocalTCC;
-import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +14,12 @@ import org.springframework.web.bind.annotation.*;
  **/
 @FeignClient(value = "tcc-transfer-in")
 @RequestMapping("/inAccount")
-@LocalTCC
 public interface InAccountService {
 
-    @TwoPhaseBusinessAction(name = "InAccountService", commitMethod = "inConfirm", rollbackMethod = "inCancel")
     @PostMapping(value = "/try")
     boolean inTry(@RequestBody BusinessActionContext actionContext,
-                  @BusinessActionContextParameter(paramName = "inId") @RequestParam("id") String id,
-                  @BusinessActionContextParameter(paramName = "amount") @RequestParam("amount") double amount);
+                  @RequestParam("id") String id,
+                  @RequestParam("amount") double amount);
 
 
     /**

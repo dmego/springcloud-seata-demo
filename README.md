@@ -20,9 +20,9 @@ SpringCloud 下的 Seata 分布式事务， AT 模式和 TCC 模式
 
 ## 环境说明
 ```yaml
-mysql: 8.0
+mysql: 8.0.12
 consul: 1.9.2
-seata: 1.5.0-SNAPSHOT
+seata: 1.4.1
 spring-boot: 2.3.5.RELEASE
 spring-cloud: Hoxton.SR9
 ```
@@ -44,7 +44,7 @@ springcloud-seata-demo
 │  ├── tcc-order-service       // TCC-订单服务
 │  └── tcc-product-service     // TCC-仓库服务
 ├── tcc-transfer               // TCC 模式转账工程示例
-│  ├── sql                     // 转账示例 sql 脚本
+│  ├── sql                     // 转账示例 sql 脚本
 │  ├── tcc-transfer-in         // 收钱方服务 
 │  └── tcc-trnasfer-out        // 转账方服务
 └── zsql                       // AT 和 TCC 订单库存示例 sql

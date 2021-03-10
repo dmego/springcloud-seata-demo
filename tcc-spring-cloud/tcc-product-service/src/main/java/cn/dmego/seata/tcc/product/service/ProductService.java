@@ -1,6 +1,9 @@
 package cn.dmego.seata.tcc.product.service;
 
 import io.seata.rm.tcc.api.BusinessActionContext;
+import io.seata.rm.tcc.api.BusinessActionContextParameter;
+import io.seata.rm.tcc.api.LocalTCC;
+import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 
 /**
  * @className: ProductService
@@ -9,9 +12,13 @@ import io.seata.rm.tcc.api.BusinessActionContext;
  * @author: ZengKai<dmeago@gmail.com>
  * @date: 2020/12/8 17:30
  **/
+@LocalTCC
 public interface ProductService {
 
-    boolean productTry(BusinessActionContext actionContext, Long productId, Integer count);
+    @TwoPhaseBusinessAction(name = "productService", commitMethod = "productConfirm", rollbackMethod = "productCancel")
+    boolean productTry(BusinessActionContext actionContext,
+                       @BusinessActionContextParameter(paramName = "productId") Long productId,
+                       @BusinessActionContextParameter(paramName = "count") Integer count);
 
     boolean productConfirm(BusinessActionContext actionContext);
 

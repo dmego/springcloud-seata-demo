@@ -1,6 +1,9 @@
 package cn.dmego.seata.tcc.order.service;
 
 import io.seata.rm.tcc.api.BusinessActionContext;
+import io.seata.rm.tcc.api.BusinessActionContextParameter;
+import io.seata.rm.tcc.api.LocalTCC;
+import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 
 /**
  * @className: OrderService
@@ -9,9 +12,16 @@ import io.seata.rm.tcc.api.BusinessActionContext;
  * @author: ZengKai<dmeago@gmail.com>
  * @date: 2020/12/6 17:28
  **/
+@LocalTCC
 public interface OrderService {
 
-    boolean orderTry(BusinessActionContext actionContext,Long orderId, Long userId, Long productId, Integer count, Integer payAmount);
+    @TwoPhaseBusinessAction(name = "orderService", commitMethod = "orderConfirm", rollbackMethod = "orderCancel")
+    boolean orderTry(BusinessActionContext actionContext,
+                     @BusinessActionContextParameter(paramName = "orderId") Long orderId,
+                     @BusinessActionContextParameter(paramName = "userId") Long userId,
+                     @BusinessActionContextParameter(paramName = "productId") Long productId,
+                     @BusinessActionContextParameter(paramName = "count") Integer count,
+                     @BusinessActionContextParameter(paramName = "payAmount") Integer payAmount);
 
     boolean orderConfirm(BusinessActionContext actionContext);
 

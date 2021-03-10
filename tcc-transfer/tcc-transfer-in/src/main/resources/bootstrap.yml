@@ -41,7 +41,7 @@ spring:
 
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/tcc_test_in?useSSL=false&useUnicode=true&characterEncoding=UTF-8
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     username: root
     password: root
     platform: mysql
@@ -81,8 +81,8 @@ seata:
     # 虚拟组和分组的映射
     vgroup-mapping:
       tcc-transfer-in-group: seata-server
-#    grouplist:
-#      seata-server: 127.0.0.1:8091
+    grouplist:
+      seata-server: 127.0.0.1:8091
   # Seata 注册中心配置项，对应 RegistryProperties 类
 #  registry:
 #    type: consul # 注册中心类型，默认为 file

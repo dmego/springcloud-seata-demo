@@ -9,7 +9,6 @@ import javax.annotation.Resource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @className: InAccountDao
@@ -39,11 +38,6 @@ public class InAccountDao {
         return jdbcTemplate.update(sql, amount, accountId);
     }
 
-    public boolean exception(String id, String data){
-        String sql = "select * from temp where id = ? and data = ?";
-        List<Map<String, Object>> map = jdbcTemplate.queryForList(sql, id, data);
-        return map.size() != 0;
-    }
 
     public int[] init(List<Account> accounts){
         String sql = "insert into account(id, balance, freezed, incoming) VALUES (?, ?, ?, ?)";

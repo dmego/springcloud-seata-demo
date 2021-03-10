@@ -56,7 +56,7 @@ public class InAccountServiceImpl implements IInAccountService {
         String txId = actionContext.getXid();
         long branchId = actionContext.getBranchId();
         String id = ((String) actionContext.getActionContext("inId"));
-        double amount = ((double) actionContext.getActionContext("amount"));
+        double amount =Double.parseDouble(String.valueOf(actionContext.getActionContext("amount")));
         log.debug("[inConfirm]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
 
         // 幂等控制，如果commit阶段重复执行则直接返回
@@ -83,7 +83,7 @@ public class InAccountServiceImpl implements IInAccountService {
         String txId = actionContext.getXid();
         long branchId = actionContext.getBranchId();
         String id = ((String) actionContext.getActionContext("inId"));
-        double amount = ((double) actionContext.getActionContext("amount"));
+        double amount =Double.parseDouble(String.valueOf(actionContext.getActionContext("amount")));
         log.debug("[inCancel]: 当前 XID:{}, branchId:{}, 用户:{}, 金额:{}", txId, branchId, id, amount);
 
         // 幂等控制，如果 cancel 阶段重复执行则直接返回

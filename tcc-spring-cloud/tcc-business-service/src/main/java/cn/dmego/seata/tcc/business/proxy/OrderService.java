@@ -1,9 +1,6 @@
 package cn.dmego.seata.tcc.business.proxy;
 
 import io.seata.rm.tcc.api.BusinessActionContext;
-import io.seata.rm.tcc.api.BusinessActionContextParameter;
-import io.seata.rm.tcc.api.LocalTCC;
-import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,17 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
  **/
 @FeignClient("tcc-order-service")
 @RequestMapping("/order")
-@LocalTCC
 public interface OrderService {
 
     @PostMapping("/try")
-    @TwoPhaseBusinessAction(name = "orderService", commitMethod = "orderConfirm", rollbackMethod = "orderCancel")
+
     boolean orderTry(@RequestBody BusinessActionContext actionContext,
-                     @BusinessActionContextParameter(paramName = "orderId") @RequestParam("orderId") Long orderId,
-                     @BusinessActionContextParameter(paramName = "userId") @RequestParam("userId") Long userId,
-                     @BusinessActionContextParameter(paramName = "productId") @RequestParam("productId") Long productId,
-                     @BusinessActionContextParameter(paramName = "count") @RequestParam("count") Integer count,
-                     @BusinessActionContextParameter(paramName = "payAmount") @RequestParam("payAmount") Integer payAmount);
+                     @RequestParam("orderId") Long orderId,
+                     @RequestParam("userId") Long userId,
+                     @RequestParam("productId") Long productId,
+                     @RequestParam("count") Integer count,
+                     @RequestParam("payAmount") Integer payAmount);
 
     @PostMapping("/confirm")
     boolean orderConfirm(@RequestBody BusinessActionContext actionContext);
