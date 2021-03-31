@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
         logger.info("[createOrder] 开始创建订单: {}", orderDTO.toString());
         int saveOrder = orderDao.saveOrder(orderDTO);
         if(saveOrder == 0){
-            logger.warn("[reduceStock] 创建订单 {} 失败", orderDTO.toString());
+            logger.warn("[createOrder] 创建订单 {} 失败", orderDTO.toString());
             throw new Exception("创建订单失败");
         }
         logger.info("[createOrder] 保存订单: {}", orderDTO.getId());

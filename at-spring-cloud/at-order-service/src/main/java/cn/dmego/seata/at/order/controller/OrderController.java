@@ -27,7 +27,7 @@ public class OrderController {
 
     @PostMapping("/create-order")
     public boolean createOrder(@RequestBody OrderDTO orderDTO) throws Exception {
-        logger.info("[createOrder] 收到下单请求, 用户:{}, 商品:{}, 数量:{}", orderDTO.getUserId(), orderDTO.getUserId(), orderDTO.getCount());
+        logger.info("[createOrder] 收到下单请求, 用户:{}, 商品:{}, 数量:{}", orderDTO.getUserId(), orderDTO.getProductId(), orderDTO.getCount());
         return orderService.createOrder(orderDTO);
     }
 

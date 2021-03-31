@@ -47,4 +47,13 @@ public class BusinessDTO {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+    @Override
+    public String toString() {
+        return "BusinessDTO{" +
+                "userId=" + userId +
+                ", productId=" + productId +
+                ", count=" + count +
+                '}';
+    }
 }
