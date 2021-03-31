@@ -12,6 +12,7 @@
     <modules>
         <module>at-spring-cloud</module>
         <module>tcc-spring-cloud</module>
+        <module>saga-spring-cloud</module>
         <module>tcc-transfer</module>
         <module>common-service</module>
         <module>common-parent</module>
