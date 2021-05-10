@@ -1,5 +1,6 @@
 package cn.dmego.seata.saga.business.proxy;
 
+import cn.dmego.seata.saga.business.config.FeignErrorDecoder;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author dmego
  * @date 2021/3/31 10:48
  */
-@FeignClient("saga-account-service")
+@FeignClient(value = "saga-account-service", configuration = {FeignErrorDecoder.class})
 @RequestMapping("/account")
 public interface AccountService {
 

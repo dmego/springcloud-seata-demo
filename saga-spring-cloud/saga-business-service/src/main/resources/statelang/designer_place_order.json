@@ -39,7 +39,7 @@
       "stateType": "Start",
       "stateProps": {
         "StateMachine": {
-          "Name": "BusinessOrder",
+          "Name": "DesignerBusinessOrder",
           "Comment": "business pacle order",
           "Version": "0.0.1"
         }

@@ -5,6 +5,7 @@ import cn.dmego.seata.common.util.IDUtils;
 import cn.dmego.seata.saga.business.proxy.ProductService;
 import cn.dmego.seata.saga.business.service.BusinessService;
 import io.seata.saga.engine.StateMachineEngine;
+import io.seata.saga.statelang.domain.ExecutionStatus;
 import io.seata.saga.statelang.domain.StateMachineInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +52,11 @@ public class BusinessServiceImpl implements BusinessService {
         businessParam.put("amount", payAmount);
 
         StateMachineInstance instance = stateMachineEngine.start("BusinessOrder", null, businessParam);
-        logger.info("[handleBusiness] 下单成功, 响应结果: {} ", instance.getStatus().getStatusString());
-
+        if(ExecutionStatus.SU.equals(instance.getStatus())) {
+            logger.info("[handleBusiness] 下单成功, 响应结果: {} ", instance.getStatus().getStatusString());
+        } else {
+            logger.error("[handleBusiness] 下单失败, 响应结果: {} ", instance.getStatus().getStatusString());
+        }
         return instance.getStatus().getStatusString();
     }
 }
