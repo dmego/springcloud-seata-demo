@@ -22,9 +22,9 @@ SpringCloud 下的 Seata 分布式事务， AT 模式、TCC 模式 和 SAGA 模�
 ```yaml
 mysql: 8.0.12
 consul: 1.9.2
-seata: 1.4.1
-spring-boot: 2.3.5.RELEASE
-spring-cloud: Hoxton.SR9
+seata: 1.4.2
+spring-boot: 2.4.5
+spring-cloud: 2020.0.2
 ```
 
 ## 工程目录结构

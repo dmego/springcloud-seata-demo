@@ -16,8 +16,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+        <mysql.version>8.0.21</mysql.version>
         <spring.boot.version>2.4.5</spring.boot.version>
         <spring.cloud.version>2020.0.2</spring.cloud.version>
+        <spring.cloud.alibaba.version>2021.1</spring.cloud.alibaba.version>
         <seata.version>1.4.2</seata.version>
         <common.service.version>1.0-SNAPSHOT</common.service.version>
     </properties>
@@ -77,14 +79,14 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
+            <version>${mysql.version}</version>
         </dependency>
 
         <!-- 引入 Spring Cloud Alibaba Seata 相关依赖，使用 Seata 实现分布式事务，并实现对其的自动配置 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-            <version>2021.1</version>
+            <version>${spring.cloud.alibaba.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.seata</groupId>
@@ -130,7 +132,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.4.5</version>
+                <version>${spring.boot.version}</version>
                 <executions>
                     <execution>
                         <goals>
