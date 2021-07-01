@@ -83,6 +83,10 @@ seata:
       tcc-transfer-in-group: seata-server
     grouplist:
       seata-server: 127.0.0.1:8091
+  tcc-fence:
+    config:
+      clean-mode: minute
+      clean-period: 1
   # Seata 注册中心配置项，对应 RegistryProperties 类
 #  registry:
 #    type: consul # 注册中心类型，默认为 file

@@ -20,35 +20,18 @@ BEGIN;
 INSERT INTO `account` VALUES ('1', 100, 0, 0);
 COMMIT;
 
--- ----------------------------
--- Table structure for account_trans
--- ----------------------------
-DROP TABLE IF EXISTS `account_trans`;
-CREATE TABLE `account_trans` (
-  `tx_id` varchar(255) NOT NULL,
-  `account_id` varchar(255) NOT NULL,
-  `amount` double DEFAULT NULL,
-  PRIMARY KEY (`tx_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- ----------------------------
--- Table structure for temp
--- ----------------------------
-DROP TABLE IF EXISTS `temp`;
-CREATE TABLE `temp` (
-  `id` varchar(255) NOT NULL,
-  `data` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of temp
--- ----------------------------
-BEGIN;
-INSERT INTO `temp` VALUES ('1', '1');
-INSERT INTO `temp` VALUES ('2', '1');
-INSERT INTO `temp` VALUES ('3', '1');
-COMMIT;
-
+-- -------------------------------- The script use tcc fence  --------------------------------
+CREATE TABLE IF NOT EXISTS `tcc_fence_log`
+(
+    `xid`           VARCHAR(128)  NOT NULL COMMENT 'global id',
+    `branch_id`     BIGINT        NOT NULL COMMENT 'branch id',
+    `action_name`   VARCHAR(64)   NOT NULL COMMENT 'action name',
+    `status`        TINYINT       NOT NULL COMMENT 'status(tried:1;committed:2;rollbacked:3;suspended:4)',
+    `gmt_create`    DATETIME(3)   NOT NULL COMMENT 'create time',
+    `gmt_modified`  DATETIME(3)   NOT NULL COMMENT 'update time',
+    PRIMARY KEY (`xid`, `branch_id`),
+    KEY `idx_gmt_modified` (`gmt_modified`),
+    KEY `idx_status` (`status`)
+    ) ENGINE = InnoDB
+    DEFAULT CHARSET = utf8;
 SET FOREIGN_KEY_CHECKS = 1;

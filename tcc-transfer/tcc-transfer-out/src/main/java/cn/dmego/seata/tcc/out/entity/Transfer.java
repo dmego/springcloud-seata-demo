@@ -24,7 +24,7 @@ public class Transfer implements Serializable {
     /**
      * 转账金额
      */
-    private double amount;
+    private String amount;
 
     public String getInId() {
         return inId;
@@ -42,11 +42,11 @@ public class Transfer implements Serializable {
         this.outId = outId;
     }
 
-    public double getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 }

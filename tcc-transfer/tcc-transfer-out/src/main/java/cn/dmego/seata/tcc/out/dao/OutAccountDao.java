@@ -43,12 +43,14 @@ public class OutAccountDao {
         String sql = "insert into account(id, balance, freezed, incoming) VALUES (?, ?, ?, ?)";
         return this.jdbcTemplate.batchUpdate(sql,
                 new BatchPreparedStatementSetter() {
+                    @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
                         ps.setString(1, accounts.get(i).getId());
                         ps.setString(2, accounts.get(i).getBalance());
                         ps.setString(3, accounts.get(i).getFreezed());
                         ps.setString(4, accounts.get(i).getIncoming());
                     }
+                    @Override
                     public int getBatchSize() {
                         return accounts.size();
                     }

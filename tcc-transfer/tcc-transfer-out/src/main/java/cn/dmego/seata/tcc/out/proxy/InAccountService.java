@@ -19,8 +19,7 @@ public interface InAccountService {
     @PostMapping(value = "/try")
     boolean inTry(@RequestBody BusinessActionContext actionContext,
                   @RequestParam("id") String id,
-                  @RequestParam("amount") double amount);
-
+                  @RequestParam("amount") String amount);
 
     /**
      * Commit boolean.

@@ -35,7 +35,7 @@ public class TransServiceImpl implements ITransService {
 
     @Override
     @GlobalTransactional
-    public boolean transferAmount(Transfer transfer){
+    public boolean transferAmount(Transfer transfer) {
         long s = System.currentTimeMillis();
         String xid = RootContext.getXID();
 

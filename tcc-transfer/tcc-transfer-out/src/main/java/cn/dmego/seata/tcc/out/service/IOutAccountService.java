@@ -16,10 +16,10 @@ import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 @LocalTCC
 public interface IOutAccountService {
 
-    @TwoPhaseBusinessAction(name = "IOutAccountService", commitMethod = "outConfirm", rollbackMethod = "outCancel")
+    @TwoPhaseBusinessAction(name = "IOutAccountService", commitMethod = "outConfirm", rollbackMethod = "outCancel", useTCCFence = true)
     boolean outTry(BusinessActionContext actionContext,
                    @BusinessActionContextParameter(paramName = "outId") String id,
-                   @BusinessActionContextParameter(paramName = "amount") double amount);
+                   @BusinessActionContextParameter(paramName = "amount") String amount);
 
     boolean outConfirm(BusinessActionContext actionContext);
 
