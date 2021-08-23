@@ -22,7 +22,7 @@ SpringCloud 下的 Seata 分布式事务， AT 模式、TCC 模式 和 SAGA 模�
 ```yaml
 mysql: 8.0.12
 consul: 1.9.2
-seata: 1.4.2
+seata: 1.5.0-SNAPSHOT
 spring-boot: 2.4.5
 spring-cloud: 2020.0.2
 ```
@@ -59,4 +59,4 @@ springcloud-seata-demo
 
 ### SAGA 模式下的流程图
 
-<img src="https://cdn.jsdelivr.net/gh/dmego/images/img/image-20210331110320795.png" style="zoom:40%;" />
+<img src="https://cdn.jsdelivr.net/gh/dmego/images/img/image-20210331110320795.png" style="zoom:40%;"  alt="SAGA 模式下的流程图"/>

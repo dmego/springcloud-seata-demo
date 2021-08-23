@@ -37,6 +37,16 @@ public class TransController {
         return "request succ!";
     }
 
+    @RequestMapping(value = "/tcc2", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String transferTcc2(@RequestBody Transfer transfer){
+        long s = System.currentTimeMillis();
+        log.info("transfer2 begin");
+        transService.transferAmount2(transfer);
+        long e = System.currentTimeMillis();
+        log.info("transfer2 end, used time :" +  (e - s) + "ms");
+        return "request succ!";
+    }
+
     @PostMapping(value = "/reset/{number}")
     public boolean reset(@PathVariable("number") int number){
         return outAccountService.reset(number);

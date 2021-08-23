@@ -3,7 +3,6 @@ package cn.dmego.seata.tcc.in.controller;
 
 
 import cn.dmego.seata.tcc.in.service.IInAccountService;
-import io.seata.rm.tcc.api.BusinessActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,20 +21,13 @@ public class InAccountController {
     IInAccountService inAccountService;
 
     @PostMapping(value = "/try")
-    public boolean inTry(@RequestBody BusinessActionContext actionContext,
-                         @RequestParam("id") String id,
-                         @RequestParam("amount") String amount){
-        return inAccountService.inTry(actionContext, id, amount);
+    public boolean inTry(@RequestParam("inId") String inId, @RequestParam("amount") String amount){
+        return inAccountService.inTry(inId, amount);
     }
 
-    @PostMapping(value = "/confirm")
-    public boolean inConfirm(@RequestBody BusinessActionContext actionContext){
-        return inAccountService.inConfirm(actionContext);
-    }
-
-    @PostMapping(value = "/cancel")
-    public boolean inCancel(@RequestBody BusinessActionContext actionContext){
-        return inAccountService.inCancel(actionContext);
+    @PostMapping(value = "/try2")
+    public boolean inTry2(@RequestParam("inId") String inId, @RequestParam("amount") String amount){
+        return inAccountService.inTry2(inId, amount);
     }
 
     @PostMapping(value = "/reset/{number}")

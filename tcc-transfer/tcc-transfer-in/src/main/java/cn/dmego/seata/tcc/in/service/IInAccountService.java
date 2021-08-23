@@ -16,9 +16,11 @@ import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 public interface IInAccountService {
 
     @TwoPhaseBusinessAction(name = "IInAccountService", commitMethod = "inConfirm", rollbackMethod = "inCancel", useTCCFence = true)
-    boolean inTry(BusinessActionContext actionContext,
-                  @BusinessActionContextParameter(paramName = "id") String id,
+    boolean inTry(@BusinessActionContextParameter(paramName = "inId") String inId,
                   @BusinessActionContextParameter(paramName = "amount") String amount);
+
+    @TwoPhaseBusinessAction(name = "IInAccountService", commitMethod = "inConfirm", rollbackMethod = "inCancel", useTCCFence = true, isDelayReport = true)
+    boolean inTry2(String inId, String amount);
 
     boolean inConfirm( BusinessActionContext actionContext);
 

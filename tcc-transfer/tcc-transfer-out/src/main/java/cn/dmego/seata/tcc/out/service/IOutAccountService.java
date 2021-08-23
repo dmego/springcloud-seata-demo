@@ -17,9 +17,11 @@ import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 public interface IOutAccountService {
 
     @TwoPhaseBusinessAction(name = "IOutAccountService", commitMethod = "outConfirm", rollbackMethod = "outCancel", useTCCFence = true)
-    boolean outTry(BusinessActionContext actionContext,
-                   @BusinessActionContextParameter(paramName = "outId") String id,
+    boolean outTry(@BusinessActionContextParameter(paramName = "outId") String outId,
                    @BusinessActionContextParameter(paramName = "amount") String amount);
+
+    @TwoPhaseBusinessAction(name = "IOutAccountService", commitMethod = "outConfirm", rollbackMethod = "outCancel", useTCCFence = true, isDelayReport = true)
+    boolean outTry2(String outId, String amount);
 
     boolean outConfirm(BusinessActionContext actionContext);
 

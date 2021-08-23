@@ -13,4 +13,6 @@ import cn.dmego.seata.tcc.out.entity.Transfer;
 public interface ITransService {
 
     boolean transferAmount(Transfer transfer);
+
+    boolean transferAmount2(Transfer transfer);
 }

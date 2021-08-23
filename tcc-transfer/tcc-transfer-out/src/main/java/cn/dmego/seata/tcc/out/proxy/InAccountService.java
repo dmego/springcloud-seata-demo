@@ -1,9 +1,10 @@
 package cn.dmego.seata.tcc.out.proxy;
 
 
-import io.seata.rm.tcc.api.BusinessActionContext;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @className: InAccountService
@@ -17,27 +18,9 @@ import org.springframework.web.bind.annotation.*;
 public interface InAccountService {
 
     @PostMapping(value = "/try")
-    boolean inTry(@RequestBody BusinessActionContext actionContext,
-                  @RequestParam("id") String id,
-                  @RequestParam("amount") String amount);
+    boolean inTry(@RequestParam("inId") String inId, @RequestParam("amount") String amount);
 
-    /**
-     * Commit boolean.
-     *
-     * @param actionContext save xid
-     * @return the boolean
-     */
-    @PostMapping(value = "/confirm")
-    boolean inConfirm(@RequestBody BusinessActionContext actionContext);
-
-    /**
-     * Rollback boolean.
-     *
-     * @param actionContext save xid
-     * @return the boolean
-     */
-    @PostMapping(value = "/cancel")
-    boolean inCancel(@RequestBody BusinessActionContext actionContext);
-
+    @PostMapping(value = "/try2")
+    boolean inTry2(@RequestParam("inId") String inId, @RequestParam("amount") String amount);
 }
 
