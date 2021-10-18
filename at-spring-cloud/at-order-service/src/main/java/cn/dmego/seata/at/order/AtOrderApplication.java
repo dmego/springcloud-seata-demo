@@ -5,18 +5,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * @className: OrderServiceApplication
+ * @className: AtOrderApplication
  *
- * @description: OrderServiceApplication
+ * @description: AtOrderApplication
  * @author: ZengKai<dmeago@gmail.com>
  * @date: 2020/12/8 17:42
  **/
 @SpringBootApplication
 @EnableFeignClients
-public class OrderServiceApplication {
+public class AtOrderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderServiceApplication.class, args);
+        SpringApplication.run(AtOrderApplication.class, args);
     }
 
 }

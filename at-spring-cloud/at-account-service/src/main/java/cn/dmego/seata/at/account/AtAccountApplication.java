@@ -4,17 +4,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @className: AccountServiceApplication
+ * @className: AtAccountApplication
  *
- * @description: AccountServiceApplication
+ * @description: AtAccountApplication
  * @author: ZengKai<dmeago@gmail.com>
  * @date: 2020/12/8 17:39
  **/
 @SpringBootApplication
-public class AccountServiceApplication {
+public class AtAccountApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AccountServiceApplication.class, args);
+        SpringApplication.run(AtAccountApplication.class, args);
     }
 
 }
